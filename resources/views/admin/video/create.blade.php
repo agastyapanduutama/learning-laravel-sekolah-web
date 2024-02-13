@@ -4,7 +4,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Tag</h1>
+                <h1>Tambah Video</h1>
             </div>
 
             <div class="section-body">
@@ -19,8 +19,8 @@
                             @csrf
 
                             <div class="form-group">
-                                <label>NAMA TAG</label>
-                                <input type="text" name="title" value="{{ old('title') }}" placeholder="Masukkan Nama Video" class="form-control @error('title') is-invalid @enderror">
+                                <label>JUDUL VIDEO</label>
+                                <input type="text" name="title" value="{{ old('title') }}" placeholder="Masukkan Judul Video" class="form-control @error('title') is-invalid @enderror">
 
                                 @error('title')
                                 <div class="invalid-feedback" style="display: block">
@@ -28,9 +28,10 @@
                                 </div>
                                 @enderror
                             </div>
+
                             <div class="form-group">
-                                <label>NAMA TAG</label>
-                                <input type="text" name="embed" value="{{ old('embed') }}" placeholder="Masukkan Embed Video" class="form-control @error('embed') is-invalid @enderror">
+                                <label>EMBED YOUTUBE</label>
+                                <input type="text" name="embed" value="{{ old('embed') }}" placeholder="Masukkan Embed YouTube" class="form-control @error('embed') is-invalid @enderror">
 
                                 @error('embed')
                                 <div class="invalid-feedback" style="display: block">

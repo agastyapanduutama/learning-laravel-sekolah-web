@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Video;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Video;
+use Illuminate\Http\Request;
 
 class VideoController extends Controller
 {
@@ -26,11 +25,11 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $data = Video::latest()->when(request()->q, function($data) {
-            $data = $data->where('name', 'like', '%'. request()->q . '%');
+        $videos = Video::latest()->when(request()->q, function($videos) {
+            $videos = $videos->where('name', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
-        return view('admin.video.index', compact('data'));
+        return view('admin.video.index', compact('videos'));
     }
 
     /**
@@ -58,7 +57,7 @@ class VideoController extends Controller
 
         $video = Video::create([
             'title' => $request->input('title'),
-            'embed' => $request->input('embed'),
+            'embed' => $request->input('embed')
         ]);
 
         if($video){
@@ -98,7 +97,7 @@ class VideoController extends Controller
         $video = Video::findOrFail($video->id);
         $video->update([
             'title' => $request->input('title'),
-            'embed' => $request->input('embed'),
+            'embed' => $request->input('embed')
         ]);
 
         if($video){

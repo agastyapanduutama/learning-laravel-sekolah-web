@@ -4,27 +4,27 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Kategori</h1>
+            <h1>Video</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-folder"></i> Kategori</h4>
+                    <h4><i class="fas fa-video"></i> Video</h4>
                 </div>
 
                 <div class="card-body">
                     <form action="{{ route('admin.video.index') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                @can('categories.create')
+                                @can('videos.create')
                                     <div class="input-group-prepend">
                                         <a href="{{ route('admin.video.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
-                                       placeholder="cari berdasarkan nama kategori">
+                                       placeholder="cari berdasarkan judul video">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
                                     </button>
@@ -38,27 +38,29 @@
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
                                 <th scope="col">JUDUL VIDEO</th>
-                                <th scope="col">EMBED VIDEO</th>
+                                <th scope="col">VIDEO</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($data as $no => $video)
+                            @foreach ($videos as $no => $video)
                                 <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($data->currentPage()-1) * $data->perPage() }}</th>
+                                    <th scope="row" style="text-align: center">{{ ++$no + ($videos->currentPage()-1) * $videos->perPage() }}</th>
                                     <td>{{ $video->title }}</td>
-                                    <td><a href="{{ $video->embed }}" class="btn btn-primary btn-sm" target="_blank">Lihat Video</a></td>
                                     <td class="text-center">
-                                        @can('categories.edit')
+                                        <iframe width="300" height="150" src="{{ $video->embed }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </td>
+                                    <td class="text-center">
+                                        @can('videos.edit')
                                             <a href="{{ route('admin.video.edit', $video->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
                                         @endcan
                                         
-                                        @can('categories.delete')
+                                        @can('videos.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $video->id }}">
                                                 <i class="fa fa-trash"></i>
-                                            </button>  
+                                            </button>
                                         @endcan
                                     </td>
                                 </tr>
@@ -66,7 +68,7 @@
                             </tbody>
                         </table>
                         <div style="text-align: center">
-                            {{$data->links("vendor.pagination.bootstrap-5")}}
+                            {{$videos->links("vendor.pagination.bootstrap-5")}}
                         </div>
                     </div>
                 </div>
